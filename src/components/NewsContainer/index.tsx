@@ -64,7 +64,14 @@ export const NewsContainer: React.FunctionComponent = () => {
                     />
                   )}
                   <div className="card-body">
-                    <h5 className="card-title">{item.title}</h5>
+                    <a
+                      href={item.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="card-title story-link"
+                    >
+                      {item.title}
+                    </a>
                     <p className="card-text">{item.description}</p>
                     <a
                       href={item.url}
@@ -90,13 +97,20 @@ export const NewsContainer: React.FunctionComponent = () => {
                 </div>
                 <div>
                   <div className="card-body">
-                    <h5 className="card-title">{item.title}</h5>
+                    <a
+                      href={item.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="card-title story-link"
+                    >
+                      {item.title}
+                    </a>
                     <p className="card-text">{item.description}</p>
                     <a
                       href={item.url}
                       target="_blank"
                       rel="noreferrer"
-                      className="btn btn-secondary custom-border-radius"
+                      className="btn btn-secondary custom-border-radius float-end"
                     >
                       Go to Story
                     </a>

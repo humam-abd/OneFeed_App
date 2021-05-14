@@ -24,6 +24,13 @@ i,
   color: $white;
 }
 
+.story-link {
+  color: $primary;
+  font-size: larger;
+  font-weight: 600;
+  text-decoration: none;
+}
+
 // List View Card
 .list-card {
   min-height: 200px;

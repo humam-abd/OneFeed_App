@@ -3,9 +3,9 @@ import { WeatherData } from "../../domain/models";
 import { useAsyncEffect } from "../../domain/utils";
 import { getWeatherData } from "./Header.services";
 import "../../styles/Header.scss";
-import { ICON_URL } from "../../domain/constants";
+import { WeatherWidget } from "../WeatherWidget";
 
-type LocationType = {
+type LocationCoords = {
   latitude: number;
   longitude: number;
 };
@@ -15,13 +15,18 @@ interface HeaderProps {
 }
 
 export const Header: React.FunctionComponent<HeaderProps> = ({ title }) => {
-  const [state, setState] = useState<LocationType>({
+  // State initialization
+  const [state, setState] = useState<LocationCoords>({
     latitude: 0,
     longitude: 0,
   });
   const [weatherData, setWeatherData] = useState({} as WeatherData);
 
+  // State values
   const { latitude, longitude } = state;
+
+  const temperatureSet = weatherData?.main;
+  const actualWeather = weatherData?.weather;
 
   // Get current latitude and longitude
   const getPosition = (data: GeolocationPosition) => {
@@ -45,23 +50,19 @@ export const Header: React.FunctionComponent<HeaderProps> = ({ title }) => {
   }, [latitude, longitude]);
 
   return (
-    <div className="row">
-      <div className="col-lg-9 header-title float-start">{title}</div>
-      <div className="col-lg-3 header-text">
-        {weatherData?.weather?.map((data) => {
-          const icon_url = `${ICON_URL}${data.icon}@4x.png`;
-          return (
-            <div key={data.id} className="d-flex">
-              <div>
-                <img src={icon_url} alt="weather icon" />
-              </div>
-              <div>
-                <h6>{data.main}</h6>
-                <p>{data.description}</p>
-              </div>
-            </div>
-          );
-        })}
+    <div className="container-fluid">
+      <div className="d-flex">
+        <div className="header-title float-start w-75">{title}</div>
+        <div className="header-text">
+          {actualWeather?.map((data) => {
+            return (
+              <WeatherWidget
+                weatherData={data}
+                temperatureMetrics={temperatureSet}
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );
