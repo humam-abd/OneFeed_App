@@ -12,7 +12,7 @@ export const WeatherWidget: React.FunctionComponent<WeatherWidgetProps> = ({
   temperatureMetrics,
 }) => {
   const { main, icon, description } = weatherData;
-  const { temp, feels_like, temp_min, temp_max } = temperatureMetrics;
+  const { temp, feels_like, temp_max } = temperatureMetrics;
   const iconUrl = `${ICON_URL}${icon}@4x.png`;
 
   const getCelsiusValue = (value: number) => {
@@ -22,7 +22,6 @@ export const WeatherWidget: React.FunctionComponent<WeatherWidgetProps> = ({
   const currentTemp = getCelsiusValue(temp);
   const feelsLikeTemp = getCelsiusValue(feels_like);
   const maxTemp = getCelsiusValue(temp_max);
-  const minTemp = getCelsiusValue(temp_min);
 
   const temperatureDescription =
     "Feels like " +
