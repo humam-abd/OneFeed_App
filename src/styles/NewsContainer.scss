@@ -1,3 +1,5 @@
+@import "./variables";
+
 .custom-card-body {
   width: 18em;
   margin-bottom: 10px;
@@ -14,10 +16,94 @@
 
 label {
   float: left;
-  color: white;
+  color: $white;
 }
 
 i,
 .set-color {
-  color: white;
+  color: $white;
 }
+
+// List View Card
+.list-card {
+  min-height: 200px;
+  max-height: 300px;
+}
+
+// List view image
+//----------------
+.fill-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 30px 0 0 30px;
+  margin-left: -12px;
+}
+.fill-img img {
+  flex-shrink: 0;
+  min-width: 100%;
+  min-height: 100%;
+  max-height: 200px;
+}
+//----------------
+
+// List and card view toggle
+//--------------------------
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: -1px;
+  right: 0;
+  bottom: 0;
+  background-color: $white;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  top: 2px;
+  height: 14px;
+  width: 14px;
+  left: 4px;
+  bottom: 4px;
+  background-color: $primary;
+  transition: 0.4s;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  margin-top: 3px;
+  width: 35px;
+  height: 18px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+input:checked + .slider {
+  background-color: $white;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px $primary;
+}
+
+input:checked + .slider:before {
+  transform: translateX(14px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+//--------------------------
