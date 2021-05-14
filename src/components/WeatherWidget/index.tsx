@@ -12,27 +12,41 @@ export const WeatherWidget: React.FunctionComponent<WeatherWidgetProps> = ({
   temperatureMetrics,
 }) => {
   const { main, icon, description } = weatherData;
-  const { temp } = temperatureMetrics;
+  const { temp, feels_like, temp_min, temp_max } = temperatureMetrics;
   const iconUrl = `${ICON_URL}${icon}@4x.png`;
 
-  const celsiusOutput = temp - 273.15;
+  const getCelsiusValue = (value: number) => {
+    return (value - 273.15).toFixed();
+  };
+
+  const currentTemp = getCelsiusValue(temp);
+  const feelsLikeTemp = getCelsiusValue(feels_like);
+  const maxTemp = getCelsiusValue(temp_max);
+  const minTemp = getCelsiusValue(temp_min);
+
+  const temperatureDescription =
+    "Feels like " +
+    feelsLikeTemp +
+    "ᣞC " +
+    description +
+    ". The high today was forcast as " +
+    maxTemp +
+    "ᣞC.";
 
   return (
     <div className="card weather-widget">
-      <div className="d-flex">
+      <div className="d-flex weather-card">
         <div>
           <img src={iconUrl} alt="Weather" />
         </div>
         <div>
           <div className="card-body">
-            <h5 className="card-title mt-5">
-              {celsiusOutput.toFixed()}&#176;C
-            </h5>
+            <h5 className="card-title mt-5 h2">{currentTemp}&#176;C</h5>
             <h5 className="card-title">{main}</h5>
-            <p className="card-text">{description}</p>
           </div>
         </div>
       </div>
+      <p>{temperatureDescription}</p>
     </div>
   );
 };

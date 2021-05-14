@@ -11,7 +11,12 @@
   color: $white;
 }
 
+// Weather widget
 .weather-widget {
   border: 0px;
   background-color: $primary;
+}
+
+.weather-card {
+  max-height: 165px;
 }
