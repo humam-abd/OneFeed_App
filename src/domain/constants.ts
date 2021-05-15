@@ -10,6 +10,15 @@ export const WEATHER_API_KEY: string =
 export const NEWS_API_KEY: string = process.env.REACT_APP_NEWS_API_KEY || "";
 export const ICON_URL: string = process.env.REACT_APP_WEATHER_ICON_URL || "";
 
+// App languages
+export const APP_LANGUAGES = {
+  en: "en",
+  zh: "zh",
+  pt: "pt",
+  ar: "ar",
+  es: "es",
+};
+
 // Empty data for news cards
 export const emptyData: NewsArticle[] = [
   {

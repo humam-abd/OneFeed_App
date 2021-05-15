@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { APP_LANGUAGES } from "../../domain/constants";
 
 interface SearchBlockProps {
   onChangeSearchString: (value: string) => void;
@@ -70,11 +71,11 @@ export const SearchBlock: React.FunctionComponent<SearchBlockProps> = ({
               <option selected disabled>
                 Select Language
               </option>
-              <option value="en">English</option>
-              <option value="pt">Portugese</option>
-              <option value="es">Spanish</option>
-              <option value="zh">Chinese</option>
-              <option value="ar">Arabic</option>
+              <option value={APP_LANGUAGES.en}>English</option>
+              <option value={APP_LANGUAGES.pt}>Portugese</option>
+              <option value={APP_LANGUAGES.es}>Spanish</option>
+              <option value={APP_LANGUAGES.zh}>Chinese</option>
+              <option value={APP_LANGUAGES.ar}>Arabic</option>
             </select>
           </div>
         </div>

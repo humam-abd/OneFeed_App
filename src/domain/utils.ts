@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { DependencyList, useEffect } from "react";
+import { APP_LANGUAGES } from "./constants";
 
 // Data fetching onload
 export function useAsyncEffect(
@@ -14,7 +15,7 @@ export function useAsyncEffect(
 // Get Browser language
 export const getBrowserLanguage = () => {
   const userLanguage = navigator.language;
-  if (userLanguage === "en-US") return "en";
-  if (userLanguage === "zh-CN") return "zh";
+  if (userLanguage === "en-US") return APP_LANGUAGES.en;
+  if (userLanguage === "zh-CN") return APP_LANGUAGES.zh;
   return userLanguage;
 };
