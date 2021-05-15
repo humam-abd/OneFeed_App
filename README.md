@@ -24,7 +24,7 @@ In the project directory, you can run:
 
 ### `yarn`
 
-Installs the requires packages and dependencies
+Install the required packages and dependencies
 
 ### `yarn start`
 
