@@ -1,0 +1,18 @@
+@import "./variables";
+
+.brand-title {
+  color: $white;
+  font-size: 50px;
+  font-weight: normal;
+}
+
+.nav-btn {
+  background-color: $primary;
+  border: 0;
+  margin-right: 8px;
+}
+
+.active-nav {
+  background-color: $white;
+  color: $primary !important;
+}

@@ -5,7 +5,7 @@ import "../styles/App.scss";
 function App() {
   return (
     <div className="App">
-      <Header title={"One Feed"} />
+      <Header />
       <NewsContainer />
     </div>
   );

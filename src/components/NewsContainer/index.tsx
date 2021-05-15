@@ -6,11 +6,12 @@ import "../../styles/NewsContainer.scss";
 import { View } from "../../domain/enum";
 import { getNewsData } from "./NewsContainer.service";
 import { emptyData } from "../../domain/constants";
+import { Navbar } from "../Navbar";
 
 export const NewsContainer: React.FunctionComponent = () => {
   const [searchString, setSearchString] = useState("");
   const [date, setDate] = useState<string>("");
-  const [newsData, setData] = useState<Array<NewsArticle>>([]);
+  const [newsData, setData] = useState<Array<NewsArticle>>(emptyData);
   const [view, setView] = useState(View.CardView);
 
   // Call api for news data
@@ -18,12 +19,13 @@ export const NewsContainer: React.FunctionComponent = () => {
     const response = await getNewsData(searchString, date);
     const data = response as NewsResponse;
     const newsArticles = data?.articles;
-    setData(newsArticles ?? emptyData);
+    setData(newsArticles);
   }, [searchString, date]);
 
   // Search functionality with date picker for news data and show news data
   return (
     <div className="container">
+      <Navbar onClick={setSearchString} searchValue={searchString} />
       <hr />
       <SearchBlock
         onChangeSearchString={setSearchString}

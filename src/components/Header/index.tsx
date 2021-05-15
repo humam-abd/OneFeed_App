@@ -10,11 +10,7 @@ type LocationCoords = {
   longitude: number;
 };
 
-interface HeaderProps {
-  title: string;
-}
-
-export const Header: React.FunctionComponent<HeaderProps> = ({ title }) => {
+export const Header: React.FunctionComponent = () => {
   // State initialization
   const [state, setState] = useState<LocationCoords>({
     latitude: 0,
@@ -51,8 +47,7 @@ export const Header: React.FunctionComponent<HeaderProps> = ({ title }) => {
 
   return (
     <div className="container-fluid">
-      <div className="d-flex">
-        <div className="header-title float-start w-75">{title}</div>
+      <div className="d-flex justify-content-center">
         <div className="header-text">
           {actualWeather?.map((data) => {
             return (

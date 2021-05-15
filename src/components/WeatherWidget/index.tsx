@@ -1,6 +1,7 @@
 import React from "react";
 import { ICON_URL } from "../../domain/constants";
 import { MainWeatherMetrics, Weather } from "../../domain/models";
+import "../../styles/WeatherWidget.scss";
 
 interface WeatherWidgetProps {
   weatherData: Weather;

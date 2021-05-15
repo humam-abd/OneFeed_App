@@ -1,4 +1,5 @@
 @import "./variables";
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Open+Sans&family=Quicksand&family=Roboto&display=swap");
 
 .App {
   text-align: center;
@@ -6,6 +7,7 @@
 
 body {
   background-color: $primary;
+  font-family: "Quicksand", sans-serif;
 }
 
 hr {
