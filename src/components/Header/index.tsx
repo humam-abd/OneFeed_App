@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { WeatherData } from "../../domain/models";
+import { WeatherData, WeatherError } from "../../domain/models";
 import { useAsyncEffect } from "../../domain/utils";
 import { getWeatherData } from "./Header.services";
 import "../../styles/Header.scss";
@@ -17,6 +17,7 @@ export const Header: React.FunctionComponent = () => {
     longitude: 0,
   });
   const [weatherData, setWeatherData] = useState({} as WeatherData);
+  const [errorMessage, setErrorMessage] = useState("");
 
   // Destructing state values
   const { latitude, longitude } = state;
@@ -41,14 +42,20 @@ export const Header: React.FunctionComponent = () => {
   // Call api for weather data
   useAsyncEffect(async () => {
     const response = await getWeatherData(latitude, longitude);
-    const data = response as WeatherData;
-    setWeatherData(data);
+    const responseError = (response as WeatherError)?.message;
+    if (responseError) {
+      setErrorMessage(responseError);
+    } else {
+      const data = response as WeatherData;
+      setWeatherData(data);
+    }
   }, [latitude, longitude]);
 
   return (
     <div className="container-fluid">
       <div className="d-flex justify-content-center">
         <div className="header-text">
+          {errorMessage && <p className="text-danger">{errorMessage}</p>}
           {actualWeather?.map((data) => {
             return (
               <WeatherWidget

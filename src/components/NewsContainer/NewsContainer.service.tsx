@@ -1,5 +1,5 @@
 import { NEWS_URL, NEWS_API_KEY } from "../../domain/constants";
-import { NewsResponse } from "../../domain/models";
+import { NewsError, NewsResponse } from "../../domain/models";
 
 // Get News Data
 export const getNewsData = async (
@@ -16,6 +16,7 @@ export const getNewsData = async (
       return data;
     })
     .catch((err) => {
-      console.error(err);
+      const error: NewsError = err.json();
+      return error;
     });
 };

@@ -1,5 +1,5 @@
 import { WEATHER_API_KEY, WEATHER_URL } from "../../domain/constants";
-import { WeatherData } from "../../domain/models";
+import { WeatherData, WeatherError } from "../../domain/models";
 
 // Get Weather Data
 export const getWeatherData = async (latitude: number, longitude: number) => {
@@ -12,6 +12,7 @@ export const getWeatherData = async (latitude: number, longitude: number) => {
       return data;
     })
     .catch((err) => {
-      console.error(err);
+      const error: WeatherError = err.json();
+      return error;
     });
 };

@@ -18,6 +18,12 @@ export type NewsResponse = {
   totalResults: number;
 };
 
+export type NewsError = {
+  code: string;
+  message: string;
+  status: string;
+};
+
 // Weather response types
 export type Weather = {
   description: string;
@@ -51,4 +57,9 @@ export type WeatherData = {
   visibility: number;
   weather: Weather[];
   wind: { speed: number; deg: number; gust: number };
+};
+
+export type WeatherError = {
+  cod: number;
+  message: string;
 };

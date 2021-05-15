@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NewsArticle, NewsResponse } from "../../domain/models";
+import { NewsArticle, NewsError, NewsResponse } from "../../domain/models";
 import { getBrowserLanguage, useAsyncEffect } from "../../domain/utils";
 import { SearchBlock } from "../SearchBlock";
 import "../../styles/NewsContainer.scss";
@@ -15,6 +15,7 @@ export const NewsContainer: React.FunctionComponent = () => {
   const [language, setLanguage] = useState("");
   const [newsData, setData] = useState<Array<NewsArticle>>(emptyData);
   const [view, setView] = useState(View.CardView);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     // Calling browser language function
@@ -25,10 +26,15 @@ export const NewsContainer: React.FunctionComponent = () => {
   // Call api for news data
   useAsyncEffect(async () => {
     const response = await getNewsData(searchString, date, language);
-    const data = response as NewsResponse;
-    const newsArticles = data?.articles;
-    setData([]);
-    setData(newsArticles);
+    const responseError = (response as NewsError)?.message;
+    if (responseError) {
+      setErrorMessage(responseError);
+    } else {
+      const data = response as NewsResponse;
+      const newsArticles = data?.articles;
+      setData([]);
+      setData(newsArticles);
+    }
   }, [searchString, date, language]);
 
   // Search functionality with date picker and show news data
@@ -64,6 +70,8 @@ export const NewsContainer: React.FunctionComponent = () => {
           <i className="fas fa-th-large view-icon"></i>
         </div>
       </div>
+
+      {errorMessage && <p className="text-danger">{errorMessage}</p>}
 
       <div className="row mt-4">
         {newsData?.map((item) => {
