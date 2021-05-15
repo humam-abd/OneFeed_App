@@ -1,7 +1,7 @@
 @import "./variables";
 
 .brand-title {
-  color: $white;
+  color: $secondary;
   font-size: 50px;
   font-weight: normal;
 }
@@ -13,6 +13,6 @@
 }
 
 .active-nav {
-  background-color: $white;
+  background-color: $secondary;
   color: $primary !important;
 }

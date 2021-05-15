@@ -18,7 +18,7 @@ export const Header: React.FunctionComponent = () => {
   });
   const [weatherData, setWeatherData] = useState({} as WeatherData);
 
-  // State values
+  // Destructing state values
   const { latitude, longitude } = state;
 
   const temperatureSet = weatherData?.main;

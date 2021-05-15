@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NewsArticle, NewsResponse } from "../../domain/models";
-import { useAsyncEffect } from "../../domain/utils";
+import { getBrowserLanguage, useAsyncEffect } from "../../domain/utils";
 import { SearchBlock } from "../SearchBlock";
 import "../../styles/NewsContainer.scss";
 import { View } from "../../domain/enum";
@@ -9,20 +9,29 @@ import { emptyData } from "../../domain/constants";
 import { Navbar } from "../Navbar";
 
 export const NewsContainer: React.FunctionComponent = () => {
-  const [searchString, setSearchString] = useState("");
+  // State initialization
+  const [searchString, setSearchString] = useState("Top News");
   const [date, setDate] = useState<string>("");
+  const [language, setLanguage] = useState("");
   const [newsData, setData] = useState<Array<NewsArticle>>(emptyData);
   const [view, setView] = useState(View.CardView);
 
+  useEffect(() => {
+    // Calling browser language function
+    const userLanguage = getBrowserLanguage();
+    setLanguage(userLanguage);
+  }, []);
+
   // Call api for news data
   useAsyncEffect(async () => {
-    const response = await getNewsData(searchString, date);
+    const response = await getNewsData(searchString, date, language);
     const data = response as NewsResponse;
     const newsArticles = data?.articles;
+    setData([]);
     setData(newsArticles);
-  }, [searchString, date]);
+  }, [searchString, date, language]);
 
-  // Search functionality with date picker for news data and show news data
+  // Search functionality with date picker and show news data
   return (
     <div className="container">
       <Navbar onClick={setSearchString} searchValue={searchString} />
@@ -31,6 +40,8 @@ export const NewsContainer: React.FunctionComponent = () => {
         onChangeSearchString={setSearchString}
         onChangeDate={setDate}
         date={date}
+        onSelectLanguage={setLanguage}
+        language={language}
       />
       <hr />
       <div className="d-flex">

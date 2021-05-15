@@ -10,3 +10,11 @@ export function useAsyncEffect(
     asyncFn();
   }, deps);
 }
+
+// Get Browser language
+export const getBrowserLanguage = () => {
+  const userLanguage = navigator.language;
+  if (userLanguage === "en-US") return "en";
+  if (userLanguage === "zh-CN") return "zh";
+  return userLanguage;
+};

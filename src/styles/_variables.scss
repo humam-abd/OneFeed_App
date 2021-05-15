@@ -1,9 +1,9 @@
 $primary: rgb(54, 54, 54);
-$white: white;
+$secondary: white;
 $grey: grey;
 
 :export {
   primary: $primary;
-  white: $white;
+  secondary: $secondary;
   grey: $grey;
 }
