@@ -50,7 +50,7 @@ export const SearchBlock: React.FunctionComponent<SearchBlockProps> = ({
             value={date}
             className="form-control"
             placeholder={"Search By Date"}
-            min={"2021-04-13"}
+            min={"2021-04-20"}
             onChange={(e) => {
               const { value } = e.target;
               onChangeDate(value);
@@ -66,9 +66,9 @@ export const SearchBlock: React.FunctionComponent<SearchBlockProps> = ({
                 const { value } = e.target;
                 onSelectLanguage(value);
               }}
-              value={language}
+              defaultValue={language}
             >
-              <option selected disabled>
+              <option value="SelLanguage" disabled>
                 Select Language
               </option>
               <option value={APP_LANGUAGES.en}>English</option>

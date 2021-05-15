@@ -78,7 +78,7 @@ export const NewsContainer: React.FunctionComponent = () => {
         {newsData?.map((item) => {
           if (view === View.CardView) {
             return (
-              <div key={item.url} className="col">
+              <div key={item.title} className="col">
                 <div className="card custom-card-body custom-border-radius">
                   {item.urlToImage && (
                     <img
@@ -107,7 +107,7 @@ export const NewsContainer: React.FunctionComponent = () => {
           }
           return (
             <div
-              key={item.url}
+              key={item.title}
               className="card mb-3 custom-border-radius list-card"
             >
               <div className="d-flex align-self-center">
