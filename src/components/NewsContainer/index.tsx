@@ -30,6 +30,7 @@ export const NewsContainer: React.FunctionComponent = () => {
     if (responseError) {
       setErrorMessage(responseError);
     } else {
+      setErrorMessage("");
       const data = response as NewsResponse;
       const newsArticles = data?.articles;
       setData([]);

@@ -46,6 +46,7 @@ export const Header: React.FunctionComponent = () => {
     if (responseError) {
       setErrorMessage(responseError);
     } else {
+      setErrorMessage("");
       const data = response as WeatherData;
       setWeatherData(data);
     }
