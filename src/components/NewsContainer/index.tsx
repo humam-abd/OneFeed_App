@@ -5,6 +5,7 @@ import { SearchBlock } from "../SearchBlock";
 import "../../styles/NewsContainer.scss";
 import { View } from "../../domain/enum";
 import { getNewsData } from "./NewsContainer.service";
+import { emptyData } from "../../domain/constants";
 
 export const NewsContainer: React.FunctionComponent = () => {
   const [searchString, setSearchString] = useState("");
@@ -17,7 +18,7 @@ export const NewsContainer: React.FunctionComponent = () => {
     const response = await getNewsData(searchString, date);
     const data = response as NewsResponse;
     const newsArticles = data?.articles;
-    setData(newsArticles);
+    setData(newsArticles ?? emptyData);
   }, [searchString, date]);
 
   // Search functionality with date picker for news data and show news data
@@ -32,13 +33,14 @@ export const NewsContainer: React.FunctionComponent = () => {
       <hr />
       <div className="d-flex">
         <div className="me-2">
-          <i className="fas fa-list set-color"></i>
+          <i className="fas fa-list view-icon"></i>
         </div>
         <label className="switch col-lg-12">
           <input
             type="checkbox"
             value={view}
             checked={view === View.CardView}
+            disabled={!newsData}
             onChange={() => {
               setView(view === View.CardView ? View.ListView : View.CardView);
             }}
@@ -46,7 +48,7 @@ export const NewsContainer: React.FunctionComponent = () => {
           <span className="slider round"></span>
         </label>
         <div className="ms-2">
-          <i className="fas fa-th-large set-color"></i>
+          <i className="fas fa-th-large view-icon"></i>
         </div>
       </div>
 
@@ -54,7 +56,7 @@ export const NewsContainer: React.FunctionComponent = () => {
         {newsData?.map((item) => {
           if (view === View.CardView) {
             return (
-              <div className="col">
+              <div key={item.url} className="col">
                 <div className="card custom-card-body custom-border-radius">
                   {item.urlToImage && (
                     <img
@@ -64,23 +66,18 @@ export const NewsContainer: React.FunctionComponent = () => {
                     />
                   )}
                   <div className="card-body">
-                    <a
-                      href={item.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="card-title story-link"
-                    >
-                      {item.title}
-                    </a>
+                    <div className="card-title story-title">{item.title}</div>
                     <p className="card-text">{item.description}</p>
-                    <a
-                      href={item.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="btn btn-secondary custom-border-radius"
-                    >
-                      Go to Story
-                    </a>
+                    {item.url && (
+                      <a
+                        href={item.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="btn btn-secondary custom-border-radius"
+                      >
+                        Go to Story
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
@@ -91,29 +88,24 @@ export const NewsContainer: React.FunctionComponent = () => {
               key={item.url}
               className="card mb-3 custom-border-radius list-card"
             >
-              <div className="d-flex">
+              <div className="d-flex align-self-center">
                 <div className="float-start fill-img">
                   {item.urlToImage && <img src={item.urlToImage} alt="News" />}
                 </div>
                 <div>
                   <div className="card-body">
-                    <a
-                      href={item.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="card-title story-link"
-                    >
-                      {item.title}
-                    </a>
+                    <div className="card-title story-title">{item.title}</div>
                     <p className="card-text">{item.description}</p>
-                    <a
-                      href={item.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="btn btn-secondary custom-border-radius float-end"
-                    >
-                      Go to Story
-                    </a>
+                    {item.url && (
+                      <a
+                        href={item.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="btn btn-secondary custom-border-radius float-end mb-2"
+                      >
+                        Go to Story
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>

@@ -57,6 +57,7 @@ export const Header: React.FunctionComponent<HeaderProps> = ({ title }) => {
           {actualWeather?.map((data) => {
             return (
               <WeatherWidget
+                key={data.id}
                 weatherData={data}
                 temperatureMetrics={temperatureSet}
               />
