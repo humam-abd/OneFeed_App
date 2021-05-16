@@ -29,12 +29,10 @@ export const SearchBlock: React.FunctionComponent<SearchBlockProps> = ({
   }
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
-    if (e.key === "Enter") onChangeSearchString(inputValue);
-  }
-
-  function handleOnBlur() {
-    onChangeSearchString(inputValue);
-    setInputValue("");
+    if (e.key === "Enter") {
+      onChangeSearchString(inputValue);
+      setInputValue("");
+    }
   }
 
   function handleDateChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -60,7 +58,6 @@ export const SearchBlock: React.FunctionComponent<SearchBlockProps> = ({
             value={inputValue}
             onChange={handleSearchStringChange}
             onKeyDown={handleKeyDown}
-            onBlur={handleOnBlur}
           />
         </div>
         <div className="col-lg-3 mb-3">
