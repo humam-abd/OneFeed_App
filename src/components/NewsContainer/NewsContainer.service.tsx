@@ -16,7 +16,7 @@ export default async function getNewsData(
       return data;
     })
     .catch((err) => {
-      const error: NewsError = err.json();
+      const error: NewsError = err;
       return error;
     });
 }

@@ -15,7 +15,7 @@ export default async function getWeatherData(
       return data;
     })
     .catch((err) => {
-      const error: WeatherError = err.json();
+      const error: WeatherError = err;
       return error;
     });
 }
