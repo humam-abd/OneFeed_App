@@ -28,11 +28,9 @@ export const SearchBlock: React.FunctionComponent<SearchBlockProps> = ({
     setInputValue(value);
   }
 
-  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
-    if (e.key === "Enter") {
-      onChangeSearchString(inputValue);
-      setInputValue("");
-    }
+  function handleSearchButtonClick() {
+    onChangeSearchString(inputValue);
+    setInputValue("");
   }
 
   function handleDateChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -48,20 +46,27 @@ export const SearchBlock: React.FunctionComponent<SearchBlockProps> = ({
 
   return (
     <>
-      <div className="row">
+      <div className="row search-module-style">
         <div className="col-lg-6 mt-4 mb-3">
-          <input
-            className="form-control"
-            id="search"
-            type="text"
-            placeholder="Search for topics"
-            value={inputValue}
-            onChange={handleSearchStringChange}
-            onKeyDown={handleKeyDown}
-          />
+          <div className="d-flex">
+            <input
+              className="form-control"
+              id="search"
+              type="text"
+              placeholder="Search for topics"
+              value={inputValue}
+              onChange={handleSearchStringChange}
+            />
+            <button
+              className="btn btn-secondary btn-sm ms-2"
+              onClick={handleSearchButtonClick}
+            >
+              Search
+            </button>
+          </div>
         </div>
-        <div className="col-lg-3 mb-3">
-          <label htmlFor="date">Search By Date</label>
+
+        <div className="col-lg-3 mt-4 mb-3">
           <input
             id="date"
             type="date"
@@ -72,22 +77,21 @@ export const SearchBlock: React.FunctionComponent<SearchBlockProps> = ({
             onChange={handleDateChange}
           />
         </div>
+
         <div className="col-lg-3 mt-4 mb-3">
-          <div className="btn-group">
-            <select
-              className="btn btn-light dropdown-toggle"
-              id="defaultDropdown"
-              onChange={handleLanguageChange}
-              defaultValue={language}
-            >
-              <option value="SelLanguage" disabled>
-                Select Language
-              </option>
-              {LANGUAGE_SET.map((item) => {
-                return <option value={item[1]}>{item[0]}</option>;
-              })}
-            </select>
-          </div>
+          <select
+            className="btn btn-light dropdown-toggle"
+            id="defaultDropdown"
+            onChange={handleLanguageChange}
+            defaultValue={language}
+          >
+            <option value="SelLanguage" disabled>
+              Select Language
+            </option>
+            {LANGUAGE_SET.map((item) => {
+              return <option value={item[1]}>{item[0]}</option>;
+            })}
+          </select>
         </div>
       </div>
     </>

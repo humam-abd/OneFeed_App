@@ -119,7 +119,12 @@ input:disabled + .slider {
 }
 //--------------------------
 
-// Loading icon
-.loading-icon {
-  color: $secondary;
+// Search module
+.search-module-style {
+  input,
+  button,
+  select {
+    border-radius: 30px;
+    text-align: center;
+  }
 }
