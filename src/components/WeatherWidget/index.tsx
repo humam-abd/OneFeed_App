@@ -1,6 +1,7 @@
 import React from "react";
 import { ICON_URL } from "../../domain/constants";
 import { MainWeatherMetrics, Weather } from "../../domain/models";
+import { getCelsiusValue } from "../../domain/utils";
 import "../../styles/WeatherWidget.scss";
 
 interface WeatherWidgetProps {
@@ -15,11 +16,6 @@ export const WeatherWidget: React.FunctionComponent<WeatherWidgetProps> = ({
   // Weather elements are destructed
   const { main, icon, description } = weatherData;
   const { temp, feels_like, temp_max } = temperatureMetrics;
-
-  // Kelvin to Celsius converter
-  const getCelsiusValue = (value: number) => {
-    return (value - 273.15).toFixed();
-  };
 
   // Assigning edited data to constants
   const iconUrl = `${ICON_URL}${icon}@4x.png`;

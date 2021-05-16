@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { NewsArticle, NewsError, NewsResponse } from "../../domain/models";
-import { getBrowserLanguage, useAsyncEffect } from "../../domain/utils";
+import { NewsArticle } from "../../domain/models";
+import { getBrowserLanguage } from "../../domain/utils";
 import { SearchBlock } from "../SearchBlock";
 import "../../styles/NewsContainer.scss";
 import { View } from "../../domain/enum";
-import { getNewsData } from "./NewsContainer.service";
 import { emptyData } from "../../domain/constants";
 import { Navbar } from "../Navbar";
+import useLoadNews from "./helper";
 
 export const NewsContainer: React.FunctionComponent = () => {
   // State initialization
@@ -23,20 +23,15 @@ export const NewsContainer: React.FunctionComponent = () => {
     setLanguage(userLanguage);
   }, []);
 
+  // Function for setting `view` without inline arrow function
+  function toggleView(value: View) {
+    return function () {
+      setView(value);
+    };
+  }
+
   // Call api for news data
-  useAsyncEffect(async () => {
-    const response = await getNewsData(searchString, date, language);
-    const responseError = (response as NewsError)?.message;
-    if (responseError) {
-      setErrorMessage(responseError);
-    } else {
-      setErrorMessage("");
-      const data = response as NewsResponse;
-      const newsArticles = data?.articles;
-      setData([]);
-      setData(newsArticles);
-    }
-  }, [searchString, date, language]);
+  useLoadNews(searchString, date, language, setErrorMessage, setData);
 
   // Search functionality with date picker and show news data
   return (
@@ -61,9 +56,9 @@ export const NewsContainer: React.FunctionComponent = () => {
             value={view}
             checked={view === View.CardView}
             disabled={!newsData}
-            onChange={() => {
-              setView(view === View.CardView ? View.ListView : View.CardView);
-            }}
+            onChange={toggleView(
+              view === View.CardView ? View.ListView : View.CardView
+            )}
           />
           <span className="slider round"></span>
         </label>

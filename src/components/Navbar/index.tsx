@@ -11,20 +11,28 @@ export const Navbar: React.FunctionComponent<NavbarProps> = ({
   onClick,
   searchValue,
 }) => {
-  const renderNavItem = (value: string) => {
+  /* JSX props shouldn't use inline arrow functions. So onClickHandler is defined. See this link, 
+  https://stackoverflow.com/questions/36677733/why-shouldnt-jsx-props-use-arrow-functions-or-bind#:~:text=Why%20you%20shouldn%27t%20use,previous%20function%20is%20garbage%20collected. */
+  function onClickHandler(value: string) {
+    return function () {
+      onClick(value);
+    };
+  }
+
+  function renderNavItem(value: string) {
     return (
       <li className="nav-item">
         <button
           className={classNames("btn btn-link nav-link nav-btn", {
             "active-nav": value.toLowerCase() === searchValue.toLowerCase(),
           })}
-          onClick={() => onClick(value)}
+          onClick={onClickHandler(value)}
         >
           {value.toUpperCase()}
         </button>
       </li>
     );
-  };
+  }
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark">

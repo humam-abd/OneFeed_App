@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { WeatherData, WeatherError } from "../../domain/models";
-import { useAsyncEffect } from "../../domain/utils";
-import { getWeatherData } from "./Header.services";
+import { WeatherData } from "../../domain/models";
 import "../../styles/Header.scss";
 import { WeatherWidget } from "../WeatherWidget";
+import useLoadWeather from "./helper";
 
 type LocationCoords = {
   latitude: number;
@@ -26,7 +25,7 @@ export const Header: React.FunctionComponent = () => {
   const actualWeather = weatherData?.weather;
 
   // Get current latitude and longitude
-  const getPosition = (data: GeolocationPosition) => {
+  function getPosition(data: GeolocationPosition) {
     const lat = data.coords.latitude;
     const long = data.coords.longitude;
     setState({
@@ -34,23 +33,13 @@ export const Header: React.FunctionComponent = () => {
       latitude: lat,
       longitude: long,
     });
-  };
+  }
 
   // Browser API for location access
   navigator.geolocation.getCurrentPosition(getPosition);
 
-  // Call api for weather data
-  useAsyncEffect(async () => {
-    const response = await getWeatherData(latitude, longitude);
-    const responseError = (response as WeatherError)?.message;
-    if (responseError) {
-      setErrorMessage(responseError);
-    } else {
-      setErrorMessage("");
-      const data = response as WeatherData;
-      setWeatherData(data);
-    }
-  }, [latitude, longitude]);
+  // Call API for weather data
+  useLoadWeather(latitude, longitude, setErrorMessage, setWeatherData);
 
   return (
     <div className="container-fluid">

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { APP_LANGUAGES } from "../../domain/constants";
+import { LANGUAGE_SET } from "../../domain/constants";
 
 interface SearchBlockProps {
   onChangeSearchString: (value: string) => void;
@@ -19,6 +19,35 @@ export const SearchBlock: React.FunctionComponent<SearchBlockProps> = ({
   // State initialization
   const [inputValue, setInputValue] = useState("");
 
+  const minDate = "2021-04-20";
+
+  //Functions for handling changes. Inline arrow functions are moved to separate functions
+  //--------------------------------------------------------------------------------------
+  function handleSearchStringChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { value } = e.target;
+    setInputValue(value);
+  }
+
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Enter") onChangeSearchString(inputValue);
+  }
+
+  function handleOnBlur() {
+    onChangeSearchString(inputValue);
+    setInputValue("");
+  }
+
+  function handleDateChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { value } = e.target;
+    onChangeDate(value);
+  }
+
+  function handleLanguageChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    const { value } = e.target;
+    onSelectLanguage(value);
+  }
+  //--------------------------------------------------------------------------------------
+
   return (
     <>
       <div className="row">
@@ -29,17 +58,9 @@ export const SearchBlock: React.FunctionComponent<SearchBlockProps> = ({
             type="text"
             placeholder="Search for topics"
             value={inputValue}
-            onChange={(e) => {
-              const { value } = e.target;
-              setInputValue(value);
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") onChangeSearchString(inputValue);
-            }}
-            onBlur={() => {
-              onChangeSearchString(inputValue);
-              setInputValue("");
-            }}
+            onChange={handleSearchStringChange}
+            onKeyDown={handleKeyDown}
+            onBlur={handleOnBlur}
           />
         </div>
         <div className="col-lg-3 mb-3">
@@ -50,11 +71,8 @@ export const SearchBlock: React.FunctionComponent<SearchBlockProps> = ({
             value={date}
             className="form-control"
             placeholder={"Search By Date"}
-            min={"2021-04-20"}
-            onChange={(e) => {
-              const { value } = e.target;
-              onChangeDate(value);
-            }}
+            min={minDate}
+            onChange={handleDateChange}
           />
         </div>
         <div className="col-lg-3 mt-4 mb-3">
@@ -62,20 +80,15 @@ export const SearchBlock: React.FunctionComponent<SearchBlockProps> = ({
             <select
               className="btn btn-light dropdown-toggle"
               id="defaultDropdown"
-              onChange={(e) => {
-                const { value } = e.target;
-                onSelectLanguage(value);
-              }}
+              onChange={handleLanguageChange}
               defaultValue={language}
             >
               <option value="SelLanguage" disabled>
                 Select Language
               </option>
-              <option value={APP_LANGUAGES.en}>English</option>
-              <option value={APP_LANGUAGES.pt}>Portugese</option>
-              <option value={APP_LANGUAGES.es}>Spanish</option>
-              <option value={APP_LANGUAGES.zh}>Chinese</option>
-              <option value={APP_LANGUAGES.ar}>Arabic</option>
+              {LANGUAGE_SET.map((item) => {
+                return <option value={item[1]}>{item[0]}</option>;
+              })}
             </select>
           </div>
         </div>

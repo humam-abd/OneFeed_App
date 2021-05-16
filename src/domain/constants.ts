@@ -19,6 +19,14 @@ export const APP_LANGUAGES = {
   es: "es",
 };
 
+export const LANGUAGE_SET = [
+  ["English", "en"],
+  ["Portugese", "pt"],
+  ["Spanish", "es"],
+  ["Chinese", "zh"],
+  ["Arabic", "ar"],
+];
+
 // Empty data for news cards
 export const emptyData: NewsArticle[] = [
   {

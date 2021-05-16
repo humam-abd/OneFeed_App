@@ -13,9 +13,14 @@ export function useAsyncEffect(
 }
 
 // Get Browser language
-export const getBrowserLanguage = () => {
+export function getBrowserLanguage() {
   const userLanguage = navigator.language;
   if (userLanguage === "en-US") return APP_LANGUAGES.en;
   if (userLanguage === "zh-CN") return APP_LANGUAGES.zh;
   return userLanguage;
-};
+}
+
+// Kelvin to Celsius converter
+export function getCelsiusValue(value: number) {
+  return (value - 273.15).toFixed();
+}
